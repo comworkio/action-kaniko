@@ -15,24 +15,15 @@ jobs:
           fetch-depth: 0
 
       - name: Release Notary Action
-        uses: docker://aevea/release-notary@sha256:b77e86ce9ce4b0c8774cdb3b807b756d1d6139d73aca74388560250de259be4e
+        uses: docker://idrissneumann/release-notary@sha256:b77e86ce9ce4b0c8774cdb3b807b756d1d6139d73aca74388560250de259be4e
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: GitHub Package Registry
-        uses: aevea/action-kaniko@master
-        with:
-          registry: ghcr.io
-          password: ${{ secrets.GITHUB_TOKEN }}
-          image: kaniko
-          cache: true
-          cache_registry: cache
-
       - name: Dockerhub
-        uses: aevea/action-kaniko@master
+        uses: idrissneumann/action-kaniko@main
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          image: aevea/kaniko
+          image: comworkio/kaniko
           cache: true
-          cache_registry: aevea/cache
+          cache_registry: comworkio/cache
