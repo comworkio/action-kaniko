@@ -7,11 +7,13 @@ image filesystem.
 This allows for a quite efficient caching, that can be pushed to another docker registry and downloaded on-demand, and a noticeably easier and
 more secure secret passing to the build context, as it happens in the user space itself.
 
-## Disclaimer
+## Disclaimer: this is a fork
 
 This is a fork from [this repository](https://github.com/aevea/action-kaniko) which seems abandonned.
 
 It includes [this pull request](https://github.com/aevea/action-kaniko/pull/41) that has never been reviewed.
+
+It also includes a [build test](./test/) that will be triggered on each pull requests.
 
 ## Usage
 
