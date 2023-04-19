@@ -1,0 +1,29 @@
+name: Pull request
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test kaniko action
+    steps:
+      - name: Get current branch
+        id: get-branch
+        run: |
+          echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Checkout action repo
+        uses: actions/checkout@v3
+        with:
+          repository: idrissneumann/action-kaniko
+          ref: ${{ steps.get-branch.outputs.branch }}
+          path: ./.github/idrissneumann/action-kaniko
+      - name: Build and push nginx test image
+        uses: ./.github/idrissneumann/action-kaniko
+        with:
+          image: "comworkio/kaniko-test"
+          username: "${{ secrets.DOCKERHUB_USERNAME }}"
+          password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+          path: ./.github/idrissneumann/action-kaniko/test
+          target: nginx
+          cache: true
+          tag: ${{ steps.get-branch.outputs.branch-name }}
+          cache_registry: "comworkio/cache"
