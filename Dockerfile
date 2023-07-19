@@ -6,7 +6,9 @@ FROM gcr.io/kaniko-project/executor:v1.9.1-debug
 
 SHELL ["/busybox/sh", "-c"]
 
-RUN wget -O /kaniko/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && \
+RUN addgroup -S kaniko && \
+    adduser -S kaniko -G kaniko && \
+    wget -O /kaniko/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && \
     chmod +x /kaniko/jq && \
     wget -O /kaniko/reg \
     https://github.com/genuinetools/reg/releases/download/v0.16.1/reg-linux-386 && \
@@ -17,9 +19,6 @@ RUN wget -O /kaniko/jq https://github.com/stedolan/jq/releases/download/jq-1.6/j
     rm /crane.tar.gz
 
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=certs /usr/sbin/useradd /usr/sbin/useradd
-
-RUN useradd --user-group --system --create-home --no-log-init kaniko
 
 COPY entrypoint.sh /
 
