@@ -15,10 +15,18 @@ RUN wget -O /kaniko/jq \
     wget -O /crane.tar.gz \ 
     https://github.com/google/go-containerregistry/releases/download/v0.8.0/go-containerregistry_Linux_x86_64.tar.gz && \
     tar -xvzf /crane.tar.gz crane -C /kaniko && \
-    rm /crane.tar.gz
+    rm /crane.tar.gz && \
+    useradd --user-group --system --create-home --no-log-init kaniko
+
+COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
 COPY entrypoint.sh /
-COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+
+RUN chown -R kaniko:kaniko /kaniko && \
+    chown -R kaniko:kaniko /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+USER kaniko
 
 ENTRYPOINT ["/entrypoint.sh"]
 
