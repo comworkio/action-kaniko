@@ -6,7 +6,9 @@ FROM gcr.io/kaniko-project/executor:v1.9.1-debug
 
 SHELL ["/busybox/sh", "-c"]
 
-RUN addgroup -S kaniko && \
+RUN touch /etc/group && \
+    touch /etc/passwd && \
+    addgroup -S kaniko && \
     adduser -S kaniko -G kaniko && \
     wget -O /kaniko/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && \
     chmod +x /kaniko/jq && \
