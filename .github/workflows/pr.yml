@@ -13,16 +13,16 @@ jobs:
       - name: Checkout action repo
         uses: actions/checkout@v3
         with:
-          repository: idrissneumann/action-kaniko
+          repository: comworkio/action-kaniko
           ref: ${{ steps.get-branch.outputs.branch }}
-          path: ./.github/idrissneumann/action-kaniko
+          path: ./.github/comworkio/action-kaniko
       - name: Build and push nginx test image
-        uses: ./.github/idrissneumann/action-kaniko
+        uses: ./.github/comworkio/action-kaniko
         with:
           image: "comworkio/kaniko-test"
           username: "${{ secrets.DOCKERHUB_USERNAME }}"
           password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-          path: ./.github/idrissneumann/action-kaniko/test
+          path: ./.github/comworkio/action-kaniko/test
           target: nginx
           cache: true
           tag: ${{ steps.get-branch.outputs.branch-name }}

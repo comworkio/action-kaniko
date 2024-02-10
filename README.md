@@ -27,13 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: Kaniko build
-        uses: idrissneumann/action-kaniko@main
+        uses: comworkio/action-kaniko@main
         with:
-          image: idrissneumann/kaniko
+          image: comworkio/kaniko
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           cache: true
-          cache_registry: idrissneumann/cache
+          cache_registry: comworkio/cache
 ```
 
 ## Required Arguments
@@ -75,7 +75,7 @@ In this case, the authentication credentials need to be passed via GitHub Action
 
 ```yaml
 with:
-  image: idrissneumann/kaniko
+  image: comworkio/kaniko
   username: ${{ secrets.DOCKERHUB_USERNAME }}
   password: ${{ secrets.DOCKERHUB_PASSWORD }}
 ```
@@ -85,17 +85,17 @@ doesn't work. If you want to use caching with Dockerhub, create a `cache` reposi
 
 ```yaml
 with:
-  image: idrissneumann/kaniko
+  image: comworkio/kaniko
   username: ${{ secrets.DOCKERHUB_USERNAME }}
   password: ${{ secrets.DOCKERHUB_PASSWORD }}
   cache: true
-  cache_registry: idrissneumann/cache
+  cache_registry: comworkio/cache
 ```
 
 ### [ghcr.io](https://github.com/features/packages)
 
 GitHub's docker registry is a bit special. It doesn't allow top-level images, so this action will prefix any image with the GitHub namespace.
-If you want to push your image like `idrissneumann/action-kaniko/kaniko`, you'll only need to pass `kaniko` to this action.
+If you want to push your image like `comworkio/action-kaniko/kaniko`, you'll only need to pass `kaniko` to this action.
 
 The authentication is automatically done using the `GITHUB_ACTOR` and `GITHUB_TOKEN` provided from GitHub itself. But as `GITHUB_TOKEN` is not
 passed by default, it will have to be explicitly set up.
@@ -138,7 +138,7 @@ with:
   registry: registry.gitlab.com
   username: ${{ secrets.GL_REGISTRY_USERNAME }}
   password: ${{ secrets.GL_REGISTRY_PASSWORD }}
-  image: idrissneumann/kaniko
+  image: comworkio/kaniko
 ```
 
 > NOTE: As GitLab's registry does support namespacing, Kaniko can natively push cached layers to it, so only `cache: true` is necessary to be
@@ -149,7 +149,7 @@ with:
   registry: registry.gitlab.com
   username: ${{ secrets.GL_REGISTRY_USERNAME }}
   password: ${{ secrets.GL_REGISTRY_PASSWORD }}
-  image: idrissneumann/kaniko
+  image: comworkio/kaniko
   cache: true
 ```
 

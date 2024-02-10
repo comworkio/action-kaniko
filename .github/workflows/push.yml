@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@main
 
       - name: Dockerhub
-        uses: idrissneumann/action-kaniko@main
+        uses: comworkio/action-kaniko@main
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}

@@ -15,12 +15,12 @@ jobs:
           fetch-depth: 0
 
       - name: Release Notary Action
-        uses: docker://idrissneumann/release-notary@sha256:b77e86ce9ce4b0c8774cdb3b807b756d1d6139d73aca74388560250de259be4e
+        uses: docker://comworkio/release-notary@sha256:b77e86ce9ce4b0c8774cdb3b807b756d1d6139d73aca74388560250de259be4e
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dockerhub
-        uses: idrissneumann/action-kaniko@main
+        uses: comworkio/action-kaniko@main
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}

@@ -1,5 +1,5 @@
 build:
-	docker build -t idrissneumann/kaniko .
+	docker build -t comworkio/kaniko .
 
 run: build
 	docker run \
@@ -15,10 +15,10 @@ run: build
 		-e INPUT_CACHE_REGISTRY \
 		-e INPUT_STRIP_TAG_PREFIX \
 		-e INPUT_SKIP_UNCHANGED_DIGEST \
-	idrissneumann/kaniko
+	comworkio/kaniko
 
 shell: build
 	docker run \
 		-ti \
 		--entrypoint sh \
-	idrissneumann/kaniko
+	comworkio/kaniko
